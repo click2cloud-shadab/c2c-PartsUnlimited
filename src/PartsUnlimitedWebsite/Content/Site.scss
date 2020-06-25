@@ -542,7 +542,7 @@ header {
                   width: 25px;
                   height: 25px;
                   border-radius: 50%;
-                  background-color: $color-inverse;
+                  background-color: $color-rule;
                   color: white;
                   position: absolute;
                   top: -5px;
@@ -981,6 +981,15 @@ section {
 
   .back-link {
     margin-top: 7px;
+  }
+
+  .form-horizontal {
+    margin: 15px;
+  }
+
+  .alert.alert-warning {
+    background-color: $color-bar-background;
+    color: $color-white;
   }
 }
 

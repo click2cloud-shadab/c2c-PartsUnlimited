@@ -1,11 +1,5 @@
 ﻿@import 'Settings';
 
-@media screen and (min-width: $size-tablet-max) {
-  .col-border-md-right {
-    border-right: 1px solid $color-rule;
-  }
-}
-
 #login-page {
   #login-panel {
     margin-bottom: 35px;
@@ -113,7 +107,7 @@
   }
 }
 
-.loginScreen {
+.loginScreen, .alt-container {
   background: #002e2e;
   margin: 3em 0;
   padding: 3em;
@@ -126,5 +120,8 @@
   }
   h4 {
     margin-bottom: 20px;
+  }
+  .shippingFormRow {
+    padding: 0 15px;
   }
 }
