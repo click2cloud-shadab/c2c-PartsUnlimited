@@ -165,6 +165,10 @@ input[type='checkbox'].input-validation-error {
   padding-left: 0;
 }
 
+.render-body {
+  min-height: 70vh;
+}
+
 @media screen and (max-width: $size-mobile-max) {
   .container {
     padding: 0;
