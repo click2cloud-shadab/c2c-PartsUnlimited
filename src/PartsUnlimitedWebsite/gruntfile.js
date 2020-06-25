@@ -74,6 +74,11 @@ module.exports = function (grunt) {
                 src: "wwwroot/Scripts/site.js",
                 dest: "wwwroot/Scripts/site.min.js"
             }
+        },
+
+        watch: {
+            files: ["**/*"],
+            tasks: ["default"]
         }
     });
 
@@ -82,6 +87,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-sass');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask("default", ["bower:install", "copy", "sass", "concat", "uglify"]);
     grunt.registerTask("copy-all", ["copy", "sass", "concat", "uglify"]);

@@ -10,7 +10,7 @@ namespace PartsUnlimited.Models
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [Display(Name = "Email Address")]
         public string Email { get; set; }
 
         [Required]
@@ -50,14 +50,14 @@ namespace PartsUnlimited.Models
     public class ForgotViewModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [Display(Name = "Email Address")]
         public string Email { get; set; }
     }
 
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [Display(Name = "Email Address")]
         [EmailAddress]
         public string Email { get; set; }
 
@@ -74,7 +74,7 @@ namespace PartsUnlimited.Models
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "Email Address")]
         public string Email { get; set; }
 
         [Required]
@@ -93,7 +93,7 @@ namespace PartsUnlimited.Models
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "Email Address")]
         public string Email { get; set; }
 
         [Required]
@@ -114,7 +114,7 @@ namespace PartsUnlimited.Models
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "Email Address")]
         public string Email { get; set; }
     }
 }
