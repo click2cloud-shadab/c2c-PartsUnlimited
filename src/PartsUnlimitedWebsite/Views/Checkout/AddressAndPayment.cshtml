@@ -6,12 +6,12 @@
     ViewBag.Title = "Address And Payment";
 }
 
-<section>
+<section class="alt-container">
     <h2>Address And Payment</h2>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-<div class="row">
+<div class="row shippingFormRow">
             <div class="col-sm-12 col-md-6 col-border-md-right no-gutter-xs">
                 <div class="col-xs-12 no-gutter-sm">
                     <h4>Shipping Information</h4>
