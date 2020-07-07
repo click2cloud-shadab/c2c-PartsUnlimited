@@ -34,12 +34,26 @@ namespace PartsUnlimited.Controllers
         {
             var id = _userManager.GetUserId(User);
             var user = await _db.Users.FirstOrDefaultAsync(o => o.Id == id);
-
+            user.Name = "John";
+            user.Email = "john@mapy.com";
+            user.UserName = "john@mapy.com";
+            var Phone = "314-612-3604";
+            var Address = "8926 Johnson Parkway";
+            var City = "Saint Louis";
+            var State = "Missouri";
+            var Country = "United States";
+            var PostalCode = "63101";
             var order = new Order
             {
                 Name = user.Name,
                 Email = user.Email,
-                Username = user.UserName
+                Phone = Phone,
+                Username = user.UserName,
+                Address = Address,
+                City = City,
+                State = State,
+                PostalCode = PostalCode,
+                Country = Country
             };
 
             return View(order);
