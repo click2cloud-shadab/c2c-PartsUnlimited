@@ -8,6 +8,6 @@
 
 @foreach (var order in menuOrder)
 {
-    <li>@Html.ActionLink(Model.Where(x => x.CategoryId == order).Select(x => x.Name).FirstOrDefault(), "Browse", "Store", new { CategoryId = order }, null)</li>
+    <li>@Html.ActionLink(Model.Where(x => x.CategoryId == order).Select(x => x.Name).FirstOrDefault() ?? string.Empty, "Browse", "Store", new { CategoryId = order }, null)</li>
 }
 <li>@Html.ActionLink("More", "Index", "Store")</li>
