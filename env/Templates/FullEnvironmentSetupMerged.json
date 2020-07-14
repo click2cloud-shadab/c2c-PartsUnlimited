@@ -606,7 +606,7 @@
           ],
           "properties": {
             "DefaultConnectionString": {
-              "value": "[concat('Data Source=192.168.3.34; Initial Catalog=PartsUnlimitedDB;User ID=sa;Password=ROOT#123; Integrated Security=False; MultipleActiveResultSets=True', ';')]",
+              "value": "[concat('Data Source=114.143.207.109; Initial Catalog=WWI;User ID=sa;Password=ROOT#123; Integrated Security=False; MultipleActiveResultSets=True', ';')]",
               "type": "SQLAzure"
             }
           }
@@ -659,7 +659,7 @@
               ],
               "properties": {
                 "DefaultConnectionString": {
-                  "value": "[concat('Data Source=192.168.3.34; Initial Catalog=PartsUnlimitedDB;User ID=sa;Password=ROOT#123; Integrated Security=False; MultipleActiveResultSets=True', ';')]",
+                  "value": "[concat('Data Source=114.143.207.109; Initial Catalog=WWI;User ID=sa;Password=ROOT#123; Integrated Security=False; MultipleActiveResultSets=True', ';')]",
                   "type": "SQLAzure"
                 }
               }
@@ -697,7 +697,7 @@
               ],
               "properties": {
                 "DefaultConnectionString": {
-                  "value": "[concat('Data Source=192.168.3.34; Initial Catalog=PartsUnlimitedDB;User ID=sa;Password=ROOT#123; Integrated Security=False; MultipleActiveResultSets=True', ';')]",
+                  "value": "[concat('Data Source=114.143.207.109; Initial Catalog=WWI;User ID=sa;Password=ROOT#123; Integrated Security=False; MultipleActiveResultSets=True', ';')]",
                   "type": "SQLAzure"
                 }
               }
