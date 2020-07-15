@@ -41,7 +41,7 @@ namespace PartsUnlimited
                 {
                     // delete all default configuration providers
                     config.Sources.Clear();
-                    config.AddJsonFile("AppSettings.json", optional: true);
+                    config.AddJsonFile("config.json", optional: true);
                 })
                 .Build();
     }
