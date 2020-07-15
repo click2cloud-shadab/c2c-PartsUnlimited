@@ -1,7 +1,7 @@
 ﻿{
   "Data": {
     "DefaultConnection": {
-      "ConnectionString": "Data Source=114.143.207.109; Initial Catalog=WWI;User ID=sa;Password=ROOT#123; Integrated Security=False; MultipleActiveResultSets=True;"
+      "ConnectionString": ""
     },
     "AzureWebJobsStorage": {
       "ConnectionString": ""
