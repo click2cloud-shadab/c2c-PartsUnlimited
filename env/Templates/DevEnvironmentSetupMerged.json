@@ -5,38 +5,6 @@
     "WebsiteName": {
       "type": "string"
     },
-    "PartsUnlimitedServerName": {
-      "type": "string"
-    },
-    "PartsUnlimitedServerAdminLogin": {
-      "type": "string",
-      "defaultValue": "AdminUser"
-    },
-    "PartsUnlimitedServerAdminLoginPassword": {
-      "type": "securestring"
-    },
-    "PartsUnlimitedServerAdminLoginPasswordForTest": {
-      "type": "securestring"
-    },
-    "PartsUnlimitedDBName": {
-      "type": "string",
-      "defaultValue": "PartsUnlimitedDB"
-    },
-    "PartsUnlimitedDBCollation": {
-      "type": "string",
-      "defaultValue": "SQL_Latin1_General_CP1_CI_AS"
-    },
-    "PartsUnlimitedDBEdition": {
-      "type": "string",
-      "defaultValue": "Basic",
-      "allowedValues": [
-        "Basic",
-        "Business",
-        "Premium",
-        "Standard",
-        "Web"
-      ]
-    },
     "PartsUnlimitedHostingPlanName": {
       "type": "string"
     },
@@ -60,9 +28,6 @@
       "type": "bool",
       "defaultValue": false
     },
-    "CdnStorageAccountName": {
-      "type": "string"
-    },
     "ActionGroupName": {
       "type": "string",
       "defaultValue": "Alert Resource Owners"
@@ -70,166 +35,9 @@
     "ActionGroupShortName": {
       "type": "string",
       "defaultValue": "Alert Owners"
-    },
-    "CdnStorageContainerName": {
-      "type": "string"
-    },
-    "CdnStorageAccountNameForDev": {
-      "type": "string"
-    },
-    "CdnStorageContainerNameForDev": {
-      "type": "string"
-    },
-    "CdnStorageAccountNameForStaging": {
-      "type": "string"
-    },
-    "CdnStorageContainerNameForStaging": {
-      "type": "string"
     }
   },
-  "variables": {
-    "PartsUnlimitedServerName": "[toLower(parameters('PartsUnlimitedServerName'))]",
-    "PartsUnlimitedServerNameDev": "[concat(variables('PartsUnlimitedServerName'), 'dev')]",
-    "PartsUnlimitedServerNameStage": "[concat(variables('PartsUnlimitedServerName'), 'stage')]"
-  },
   "resources": [
-    {
-      "name": "[variables('PartsUnlimitedServerName')]",
-      "type": "Microsoft.Sql/servers",
-      "location": "[resourceGroup().location]",
-      "apiVersion": "2014-04-01-preview",
-      "tags": {
-        "displayName": "PartsUnlimitedServer"
-      },
-      "properties": {
-        "administratorLogin": "[parameters('PartsUnlimitedServerAdminLogin')]",
-        "administratorLoginPassword": "[parameters('PartsUnlimitedServerAdminLoginPassword')]"
-      },
-      "resources": [
-        {
-          "name": "[concat('AllowAllIps', variables('PartsUnlimitedServerName'))]",
-          "type": "firewallrules",
-          "location": "[resourceGroup().location]",
-          "apiVersion": "2014-04-01-preview",
-          "dependsOn": [
-            "[resourceId('Microsoft.Sql/servers', variables('PartsUnlimitedServerName'))]"
-          ],
-          "properties": {
-            "startIpAddress": "0.0.0.0",
-            "endIpAddress": "0.0.0.0"
-          }
-        },
-        {
-          "name": "[parameters('PartsUnlimitedDBName')]",
-          "type": "databases",
-          "location": "[resourceGroup().location]",
-          "apiVersion": "2014-04-01-preview",
-          "dependsOn": [
-            "[resourceId('Microsoft.Sql/servers', variables('PartsUnlimitedServerName'))]"
-          ],
-          "tags": {
-            "displayName": "PartsUnlimitedDB"
-          },
-          "properties": {
-            "collation": "[parameters('PartsUnlimitedDBCollation')]",
-            "edition": "[parameters('PartsUnlimitedDBEdition')]",
-            "maxSizeBytes": "1073741824"
-          }
-        }
-      ]
-    },
-    {
-      "name": "[variables('PartsUnlimitedServerNameDev')]",
-      "type": "Microsoft.Sql/servers",
-      "location": "[resourceGroup().location]",
-      "apiVersion": "2014-04-01-preview",
-      "dependsOn": [],
-      "tags": {
-        "displayName": "PartsUnlimitedServer"
-      },
-      "properties": {
-        "administratorLogin": "[parameters('PartsUnlimitedServerAdminLogin')]",
-        "administratorLoginPassword": "[parameters('PartsUnlimitedServerAdminLoginPasswordForTest')]"
-      },
-      "resources": [
-        {
-          "name": "[concat('AllowAllIps', variables('PartsUnlimitedServerNameDev'))]",
-          "type": "firewallrules",
-          "location": "[resourceGroup().location]",
-          "apiVersion": "2014-04-01-preview",
-          "dependsOn": [
-            "[resourceId('Microsoft.Sql/servers', variables('PartsUnlimitedServerNameDev'))]"
-          ],
-          "properties": {
-            "startIpAddress": "0.0.0.0",
-            "endIpAddress": "0.0.0.0"
-          }
-        },
-        {
-          "name": "[parameters('PartsUnlimitedDBName')]",
-          "type": "databases",
-          "location": "[resourceGroup().location]",
-          "apiVersion": "2014-04-01-preview",
-          "dependsOn": [
-            "[resourceId('Microsoft.Sql/servers', variables('PartsUnlimitedServerNameDev'))]"
-          ],
-          "tags": {
-            "displayName": "PartsUnlimitedDB"
-          },
-          "properties": {
-            "collation": "[parameters('PartsUnlimitedDBCollation')]",
-            "edition": "[parameters('PartsUnlimitedDBEdition')]",
-            "maxSizeBytes": "1073741824"
-          }
-        }
-      ]
-    },
-    {
-      "name": "[variables('PartsUnlimitedServerNameStage')]",
-      "type": "Microsoft.Sql/servers",
-      "location": "[resourceGroup().location]",
-      "apiVersion": "2014-04-01-preview",
-      "dependsOn": [],
-      "tags": {
-        "displayName": "PartsUnlimitedServer"
-      },
-      "properties": {
-        "administratorLogin": "[parameters('PartsUnlimitedServerAdminLogin')]",
-        "administratorLoginPassword": "[parameters('PartsUnlimitedServerAdminLoginPasswordForTest')]"
-      },
-      "resources": [
-        {
-          "name": "[concat('AllowAllIps', variables('PartsUnlimitedServerNameStage'))]",
-          "type": "firewallrules",
-          "location": "[resourceGroup().location]",
-          "apiVersion": "2014-04-01-preview",
-          "dependsOn": [
-            "[resourceId('Microsoft.Sql/servers', variables('PartsUnlimitedServerNameStage'))]"
-          ],
-          "properties": {
-            "startIpAddress": "0.0.0.0",
-            "endIpAddress": "0.0.0.0"
-          }
-        },
-        {
-          "name": "[parameters('PartsUnlimitedDBName')]",
-          "type": "databases",
-          "location": "[resourceGroup().location]",
-          "apiVersion": "2014-04-01-preview",
-          "dependsOn": [
-            "[resourceId('Microsoft.Sql/servers', variables('PartsUnlimitedServerNameStage'))]"
-          ],
-          "tags": {
-            "displayName": "PartsUnlimitedDB"
-          },
-          "properties": {
-            "collation": "[parameters('PartsUnlimitedDBCollation')]",
-            "edition": "[parameters('PartsUnlimitedDBEdition')]",
-            "maxSizeBytes": "1073741824"
-          }
-        }
-      ]
-    },
     {
       "name": "[concat(parameters('WebsiteName'), '-Insights')]",
       "type": "Microsoft.Insights/components",
@@ -240,30 +48,6 @@
       },
       "properties": {
         "ApplicationId": "[concat(parameters('WebsiteName'), '-Insights')]"
-      }
-    },
-    {
-      "name": "[concat(parameters('WebsiteName'), '-DevInsights')]",
-      "type": "Microsoft.Insights/components",
-      "location": "East US",
-      "apiVersion": "2014-04-01",
-      "tags": {
-        "displayName": "insightsComponents"
-      },
-      "properties": {
-        "ApplicationId": "[concat(parameters('WebsiteName'), '-DevInsights')]"
-      }
-    },
-    {
-      "name": "[concat(parameters('WebsiteName'), '-StagingInsights')]",
-      "type": "Microsoft.Insights/components",
-      "location": "East US",
-      "apiVersion": "2014-04-01",
-      "tags": {
-        "displayName": "insightsComponents"
-      },
-      "properties": {
-        "ApplicationId": "[concat(parameters('WebsiteName'), '-StagingInsights')]"
       }
     },
     {
@@ -578,13 +362,7 @@
       "name": "[parameters('WebSiteName')]",
       "type": "Microsoft.Web/sites",
       "dependsOn": [
-        "[resourceId('Microsoft.Web/serverfarms', parameters('PartsUnlimitedHostingPlanName'))]",
-        "[resourceId('Microsoft.Sql/servers', variables('PartsUnlimitedServerName'))]",
-        "[resourceId('Microsoft.Sql/servers', variables('PartsUnlimitedServerNameDev'))]",
-        "[resourceId('Microsoft.Sql/servers', variables('PartsUnlimitedServerNameStage'))]",
-        "[resourceId('Microsoft.Insights/components', concat(parameters('WebsiteName'), '-Insights'))]",
-        "[resourceId('Microsoft.Insights/components', concat(parameters('WebSiteName'), '-DevInsights'))]",
-        "[resourceId('Microsoft.Insights/components', concat(parameters('WebSiteName'), '-StagingInsights'))]"
+        "[resourceId('Microsoft.Insights/components', concat(parameters('WebsiteName'), '-Insights'))]"
       ],
       "location": "[resourceGroup().location]",
       "apiVersion": "2014-06-01",
@@ -639,82 +417,6 @@
               "Keys:ApplicationInsights:InstrumentationKey"
             ]
           }
-        },
-        {
-          "name": "Dev",
-          "type": "slots",
-          "location": "[resourceGroup().location]",
-          "apiVersion": "2014-11-01",
-          "dependsOn": [
-            "[resourceId('Microsoft.Web/sites', parameters('WebSiteName'))]"
-          ],
-          "properties": {},
-          "resources": [
-            {
-              "name": "connectionstrings",
-              "type": "config",
-              "apiVersion": "2014-11-01",
-              "dependsOn": [
-                "[resourceId('Microsoft.Web/sites/slots', parameters('WebSiteName'), 'Dev')]"
-              ],
-              "properties": {
-                "DefaultConnectionString": {
-                  "value": "[concat('Data Source=114.143.207.109; Initial Catalog=WWI;User ID=sa;Password=ROOT#123; Integrated Security=False; MultipleActiveResultSets=True', ';')]",
-                  "type": "SQLAzure"
-                }
-              }
-            },
-            {
-              "name": "appsettings",
-              "type": "config",
-              "apiVersion": "2014-11-01",
-              "dependsOn": [
-                "[resourceId('Microsoft.Web/sites/slots', parameters('WebSiteName'), 'Dev')]"
-              ],
-              "properties": {
-                "APPINSIGHTS_INSTRUMENTATIONKEY": "[reference(concat('Microsoft.Insights/components/', parameters('WebsiteName'), '-DevInsights')).InstrumentationKey]",
-                "Keys:ApplicationInsights:InstrumentationKey": "[reference(concat('Microsoft.Insights/components/', parameters('WebsiteName'), '-DevInsights')).InstrumentationKey]"
-              }
-            }
-          ]
-        },
-        {
-          "name": "Staging",
-          "type": "slots",
-          "location": "[resourceGroup().location]",
-          "apiVersion": "2014-11-01",
-          "dependsOn": [
-            "[resourceId('Microsoft.Web/sites', parameters('WebSiteName'))]"
-          ],
-          "properties": {},
-          "resources": [
-            {
-              "name": "connectionstrings",
-              "type": "config",
-              "apiVersion": "2014-11-01",
-              "dependsOn": [
-                "[resourceId('Microsoft.Web/sites/slots', parameters('WebSiteName'), 'Staging')]"
-              ],
-              "properties": {
-                "DefaultConnectionString": {
-                  "value": "[concat('Data Source=114.143.207.109; Initial Catalog=WWI;User ID=sa;Password=ROOT#123; Integrated Security=False; MultipleActiveResultSets=True', ';')]",
-                  "type": "SQLAzure"
-                }
-              }
-            },
-            {
-              "name": "appsettings",
-              "type": "config",
-              "apiVersion": "2014-11-01",
-              "dependsOn": [
-                "[resourceId('Microsoft.Web/sites/slots', parameters('WebSiteName'), 'Staging')]"
-              ],
-              "properties": {
-                "APPINSIGHTS_INSTRUMENTATIONKEY": "[reference(concat('Microsoft.Insights/components/', parameters('WebsiteName'), '-StagingInsights')).InstrumentationKey]",
-                "Keys:ApplicationInsights:InstrumentationKey": "[reference(concat('Microsoft.Insights/components/', parameters('WebsiteName'), '-StagingInsights')).InstrumentationKey]"
-              }
-            }
-          ]
         }
       ]
     }
