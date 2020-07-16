@@ -39,7 +39,7 @@ namespace PartsUnlimited.Controllers
 
             // TODO [EF] Swap to native support for loading related data when available
             var categoryModel = _db.Categories.Single(g => g.CategoryId == categoryId);
-            categoryModel.Products = _db.Products.Where(a => a.CategoryId == categoryModel.CategoryId).ToList();
+            categoryModel.Products = _db.Products.Where(a => a.CategoryId == categoryModel.CategoryId).OrderBy(x => x.SkuNumber).ToList();
 
             return View(categoryModel);
         }
@@ -50,7 +50,6 @@ namespace PartsUnlimited.Controllers
 
             productData = _db.Products.Single(a => a.ProductId == id);
             productData.Category = _db.Categories.Single(g => g.CategoryId == productData.CategoryId);
-
 
             return View(productData);
         }

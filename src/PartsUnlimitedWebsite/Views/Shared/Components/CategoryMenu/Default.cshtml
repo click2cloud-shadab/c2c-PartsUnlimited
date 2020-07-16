@@ -1,13 +1,11 @@
 ﻿@model IEnumerable<PartsUnlimited.Models.Category>
 
-@* TODO: Update the model to include an order attribute to dynamically build up the menu item *@
-
 @{
-    int[] menuOrder = { 1, 8, 2, 4, 5, 6, 3 };
+    var orderedList = Model.Where(x => x.Published == true).OrderBy(x => x.DisplayOrder);
 }
 
-@foreach (var order in menuOrder)
+@foreach (var category in orderedList)
 {
-    <li>@Html.ActionLink(Model.Where(x => x.CategoryId == order).Select(x => x.Name).FirstOrDefault() ?? string.Empty, "Browse", "Store", new { CategoryId = order }, null)</li>
+    <li>@Html.ActionLink(category.Name, "Browse", "Store", new { CategoryId = category.CategoryId }, null)</li>
 }
 <li>@Html.ActionLink("More", "Index", "Store")</li>
