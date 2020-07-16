@@ -32,7 +32,7 @@
   }
 
   .row.order {
-    border: 1px solid $color-rule;
+    border: 1px solid $color-white;
     border-top: none;
     background-color: $color-background;
 
@@ -42,7 +42,6 @@
     }
 
     .order-detail {
-      background-color: white;
       min-height: 90px;
 
       .order-detail-item {
@@ -56,7 +55,7 @@
   }
 
   .row.order:first-child {
-    border-top: 1px solid $color-rule;
+    border-top: 1px solid $color-white;
   }
 }
 
@@ -69,8 +68,6 @@
   .order-detail {
     .row {
       min-height: 40px;
-      background-color: white;
-      border-bottom: 1px solid $color-rule;
       div {
         padding-top: 10px;
         padding-bottom: 10px;
@@ -78,8 +75,12 @@
     }
   }
 
+  .panel {
+    background-color: #002e2e;
+  }
+
   .order-header {
-    border-bottom: 1px solid $color-rule;
+    border-bottom: 1px solid $color-white;
   }
 }
 
@@ -107,7 +108,8 @@
   }
 }
 
-.loginScreen, .alt-container {
+.loginScreen,
+.alt-container {
   background: #002e2e;
   margin: 3em 0;
   padding: 3em;

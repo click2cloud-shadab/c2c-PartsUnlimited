@@ -31,10 +31,10 @@ namespace PartsUnlimited
         public void ConfigureServices(IServiceCollection services)
         {
             service = services;
+            
             //If this type is present - we're on mono
             var runningOnMono = Type.GetType("Mono.Runtime") != null;
-            //var sqlConnectionString = Configuration[ConfigurationPath.Combine("ConnectionStrings", "DefaultConnectionString")];
-            var sqlConnectionString = Configuration[ConfigurationPath.Combine("ConnectionStrings", "DefaultConnectionString")];
+            var sqlConnectionString = Configuration.GetValue<string>("ConnectionStrings:DefaultConnectionString");
             var useInMemoryDatabase = string.IsNullOrWhiteSpace(sqlConnectionString);
 
             if (useInMemoryDatabase || runningOnMono)

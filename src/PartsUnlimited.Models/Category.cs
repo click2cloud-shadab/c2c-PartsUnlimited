@@ -17,6 +17,10 @@ namespace PartsUnlimited.Models
 
         public string ImageUrl { get; set; }
 
+        public int DisplayOrder { get; set; }
+
+        public bool Published { get; set; }
+
         public List<Product> Products { get; set; }
     }
 }
