@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using PartsUnlimited.Models;
@@ -67,18 +68,40 @@ namespace PartsUnlimited.Controllers
             // the products with the highest count
 
             // TODO [EF] We don't query related data as yet, so the OrderByDescending isn't doing anything
-            return _db.Products
-                .OrderByDescending(a => a.OrderDetails.Count())
-                .Take(count)
-                .ToList();
+            //return _db.Products
+            //    .OrderByDescending(a => a.OrderDetails.Count())
+            //    .Take(count)
+            //    .ToList();
+
+            // Hardcoding for demo fidelity
+            var productIds = new int[] { 36, 10, 35, 9  };
+            return GetProductsById(productIds);
         }
 
         private List<Product> GetNewProducts(int count)
         {
-            return _db.Products
-                .OrderByDescending(a => a.Created)
-                .Take(count)
-                .ToList();
+            //return _db.Products
+            //    .OrderByDescending(a => a.Created)
+            //    .Take(count)
+            //    .ToList();
+
+            // Hardcoding for demo fidelity
+            var productIds = new int[] { 40, 46, 13, 42 };
+            return GetProductsById(productIds);
+        }
+
+        private List<Product> GetProductsById(int[] ids) 
+        {
+            var products = new List<Product>();
+            foreach (var id in ids)
+            {
+                var tmp = _db.Products.Where(x => x.ProductId == id).FirstOrDefault();
+
+                if (tmp != null)
+                    products.Add(tmp);
+            }
+ 
+            return products;
         }
 
         private List<CommunityPost> GetCommunityPosts()
