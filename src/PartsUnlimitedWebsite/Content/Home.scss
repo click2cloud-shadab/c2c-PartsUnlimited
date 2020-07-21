@@ -33,14 +33,14 @@
         .item {
             background: no-repeat right center;
             background-size: cover;
-            height: 500px;
+            height: 400px;
 
             @media screen and (max-width: $size-mobile-max) {
                 height: 200px;
             }
 
             @media screen and (max-width: $size-tablet-max) {
-                height: 400px;
+                height: 300px;
             }
 
             $color-item-primary: #ffa507;

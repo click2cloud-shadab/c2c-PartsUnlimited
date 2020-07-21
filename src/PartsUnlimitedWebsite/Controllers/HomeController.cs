@@ -45,11 +45,20 @@ namespace PartsUnlimited.Controllers
                 _cache.Set("newarrivals", newProducts, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(10)).SetPriority(CacheItemPriority.High));
             }
 
+            List<Product>  WheelsThatMatter = GetProductsById(new int[] { 1039, 11, 10, 9 });
+            List<Product> FunWithColors = GetProductsById(new int[] { 31, 40, 28, 44 });
+            List<Product> GetSporty = GetProductsById(new int[] { 35, 1040, 1034, 1038 });
+            List<Product> HitTrack = GetProductsById(new int[] { 1035, 34, 37, 32 }); ;
+
             var viewModel = new HomeViewModel
             {
                 NewProducts = newProducts,
                 TopSellingProducts = topSellingProducts,
-                CommunityPosts = GetCommunityPosts()
+                CommunityPosts = GetCommunityPosts(),
+                WheelsThatMatter = WheelsThatMatter,
+                FunWithColors = FunWithColors,
+                GetSporty = GetSporty,
+                HitTrack = HitTrack
             };
 
             return View(viewModel);
@@ -74,7 +83,7 @@ namespace PartsUnlimited.Controllers
             //    .ToList();
 
             // Hardcoding for demo fidelity
-            var productIds = new int[] { 36, 10, 35, 9  };
+            var productIds = new int[] { 27, 33, 1034, 1038  };
             return GetProductsById(productIds);
         }
 
@@ -86,7 +95,7 @@ namespace PartsUnlimited.Controllers
             //    .ToList();
 
             // Hardcoding for demo fidelity
-            var productIds = new int[] { 40, 46, 13, 42 };
+            var productIds = new int[] { 45, 40, 13, 1035 };
             return GetProductsById(productIds);
         }
 

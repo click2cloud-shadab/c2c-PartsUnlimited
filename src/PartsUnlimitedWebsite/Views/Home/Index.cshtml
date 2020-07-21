@@ -26,31 +26,19 @@
         <div class="carousel-inner" role="listbox">
             <div class="item active" style="background-image: url(/images/hero_image1.jpg)">
                 <a href="@Url.Action("Browse", "Store", new { categoryId = 5 })" class="carousel-wrapper-link"></a>
-                @*<p class="header">Racer Club</p>
-                <p class="header">Merchandise</p>
-                <p class="sub-header">Now Available</p>*@
                 <div class="carousel-caption hidden-xs hidden-sm">
                     <a href="@Url.Action("Browse", "Store", new { categoryId = 5 })" class="carousel-link">Shop Now</a>
                 </div>
             </div>
             <div class="item" style="background-image: url(/images/hero_image2.jpg)">
                 <a href="@Url.Action("Browse", "Store", new { categoryId = 3 })" class="carousel-wrapper-link"></a>
-                @*<div class="container">
-                    <p class="primary">Wheels of Steel</p>
-                    <ul>
-                        <li>Improved fuel efficiency</li>
-                        <li>Superior wet weather braking</li>
-                        <li>Added durability</li>
-                    </ul>
-                </div>*@
+
                 <div class="carousel-caption hidden-xs hidden-sm">
                     <a href="@Url.Action("Browse", "Store", new { categoryId = 3 })" class="carousel-link">Shop Now</a>
                 </div>
             </div>
             <div class="item" style="background-image: url(/images/hero_image3.jpg)">
                 <a href="@Url.Action("Index", "Store")" class="carousel-wrapper-link"></a>
-                @*<p>Beyond Wheels</p>
-                <p>We'll find the parts for you</p>*@
                 <div class="carousel-caption hidden-xs hidden-sm">
                     <a href="@Url.Action("Browse", "Store", new { categoryId = 3 })" class="carousel-link">Shop Now</a>
                 </div>
@@ -68,7 +56,7 @@
         </a>
     </div>
 </div>
-<div class="featured-areas">
+@*<div class="featured-areas">
     <div class="container">
         <section class="section-alt">
             <div class="row">
@@ -99,7 +87,7 @@
             </div>
         </section>
     </div>
-</div>
+</div>*@
     }
 
 <div id="home-page">
@@ -112,7 +100,24 @@
         @await Html.PartialAsync("_ProductList", Model.TopSellingProducts)
     </section>
     <section class="section-alt">
-        <h2>Community</h2>
-        @await Html.PartialAsync("_CommunityList", Model.CommunityPosts)
+        <h2>Wheels That Matter</h2>
+        @await Html.PartialAsync("_ProductList", Model.WheelsThatMatter)
     </section>
+    <section class="section-alt">
+        <h2>Fun With Colors</h2>
+        @await Html.PartialAsync("_ProductList", Model.FunWithColors)
+    </section>
+    <section class="section-alt">
+        <h2>Get Sporty</h2>
+        @await Html.PartialAsync("_ProductList", Model.GetSporty)
+    </section>
+    <section class="section-alt">
+        <h2>Hit Track</h2>
+        @await Html.PartialAsync("_ProductList", Model.HitTrack)
+    </section>
+    @*<section class="section-alt">
+            <h2>Community</h2>
+            @await Html.PartialAsync("_CommunityList", Model.CommunityPosts)
+        </section>*@
 </div>
+  

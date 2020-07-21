@@ -10,6 +10,10 @@ namespace PartsUnlimited.ViewModels
     {
         public List<Product> NewProducts { get; set; }
         public List<Product> TopSellingProducts { get; set; }
+        public List<Product> WheelsThatMatter { get; set; }
+        public List<Product> FunWithColors  { get; set; }
+        public List<Product> GetSporty { get; set; }
+        public List<Product> HitTrack { get; set; }
         public List<CommunityPost> CommunityPosts { get; set; }
     }
-}
+} 
