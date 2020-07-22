@@ -105,7 +105,12 @@ namespace PartsUnlimited
 
             // Add session related services.
             //services.AddCaching();
-            services.AddSession();
+            services.AddSession(options => 
+            {
+                options.Cookie.SameSite = SameSiteMode.None;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                options.Cookie.IsEssential = true;
+            });
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -197,6 +202,10 @@ namespace PartsUnlimited
             // Add static files to the request pipeline
             app.UseStaticFiles();
 
+            app.UseCors("AllowAll");
+
+            app.UseAuthentication();
+
             // Add cookie-based authentication to the request pipeline
             app.UseCookiePolicy();
 
@@ -237,10 +246,7 @@ namespace PartsUnlimited
 
              await next();
             });
-            app.UseCors("AllowAll");
-            app.UseAuthentication();
             
-
             AppBuilderLoginProviderExtensions.AddLoginProviders(service, new ConfigurationLoginProviders(Configuration.GetSection("Authentication")));
             // Add login providers (Microsoft/AzureAD/Google/etc).  This must be done after `app.UseIdentity()`
             //app.AddLoginProviders( new ConfigurationLoginProviders(Configuration.GetSection("Authentication")));
