@@ -1,7 +1,9 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
@@ -31,7 +33,7 @@ namespace PartsUnlimited
         public void ConfigureServices(IServiceCollection services)
         {
             service = services;
-            
+
             //If this type is present - we're on mono
             var runningOnMono = Type.GetType("Mono.Runtime") != null;
             var sqlConnectionString = Configuration.GetValue<string>("ConnectionStrings:DefaultConnectionString");
@@ -102,6 +104,39 @@ namespace PartsUnlimited
             // Add session related services.
             //services.AddCaching();
             services.AddSession();
+
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+                options.Secure = CookieSecurePolicy.Always;
+            });
+
+            services
+            .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(options =>
+            {
+                options.Cookie.SameSite = SameSiteMode.None;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                options.Cookie.IsEssential = true;
+            });
+
+            services.AddSession(options =>
+            {
+                options.Cookie.SameSite = SameSiteMode.None;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                options.Cookie.IsEssential = true;
+            });
+
+            services.AddAntiforgery(o => o.SuppressXFrameOptionsHeader = true);
+
+            services.AddCors(o => o.AddPolicy("AllowAll", builder =>
+            {
+                builder
+                 .AllowAnyOrigin()
+                 .AllowAnyMethod()
+                 .AllowAnyHeader()
+                 .AllowCredentials();
+            }));
         }
 
         private void SetupRecommendationService(IServiceCollection services)
@@ -158,7 +193,9 @@ namespace PartsUnlimited
             app.UseStaticFiles();
 
             // Add cookie-based authentication to the request pipeline
+            app.UseCookiePolicy();
             app.UseAuthentication();
+            app.UseCors("AllowAll");
 
             AppBuilderLoginProviderExtensions.AddLoginProviders(service, new ConfigurationLoginProviders(Configuration.GetSection("Authentication")));
             // Add login providers (Microsoft/AzureAD/Google/etc).  This must be done after `app.UseIdentity()`
@@ -182,5 +219,6 @@ namespace PartsUnlimited
                     template: "{controller}/{id?}");
             });
         }
+
     }
 }

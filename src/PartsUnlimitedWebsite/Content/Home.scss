@@ -3,7 +3,11 @@
 .hero-display {
     #jumbotron-carousel {
         .carousel-caption {
-            padding-bottom: 54px;
+            padding-bottom: 20px;
+        }
+
+        ol.carousel-indicators {
+            bottom: 0;
         }
 
         a.carousel-wrapper-link {
@@ -22,9 +26,9 @@
             border: solid white 2px;
             color: white;
             background-color: rgba(255, 255, 255, 0.2);
-            font-size: 20px;
-            padding: 15px;
-            width: 220px;
+            font-size: 18px;
+            padding: 5px;
+            width: 150px;
             display: block;
             text-decoration: none;
             text-align: center;
@@ -33,14 +37,14 @@
         .item {
             background: no-repeat right center;
             background-size: cover;
-            height: 400px;
+            height: 320px;
 
             @media screen and (max-width: $size-mobile-max) {
-                height: 200px;
+                height: 180px;
             }
 
             @media screen and (max-width: $size-tablet-max) {
-                height: 300px;
+                height: 220px;
             }
 
             $color-item-primary: #ffa507;
@@ -225,7 +229,7 @@
 #home-page {
     @media screen and (min-width: $size-mobile-max) {
         .section-alt {
-            margin: 35px 0;
+            margin: 25px 0;
         }
     }
 
