@@ -9,8 +9,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="Icon" href="/images/favicon.ico" />
     <title>@ViewBag.Title – Parts Unlimited</title>
-    @await Component.InvokeAsync("Configuration") 
-
+    @await Component.InvokeAsync("Configuration")
+    <link href="/lib/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/Home.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/Account.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/ShoppingCart.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/Store.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <header>
@@ -137,12 +142,7 @@
             </div>
         </div>
     </footer>
-    <link href="/lib/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
-    <link href="/Content/Site.css" rel="stylesheet" type="text/css" />
-    <link href="/Content/Home.css" rel="stylesheet" type="text/css" />
-    <link href="/Content/Account.css" rel="stylesheet" type="text/css" />
-    <link href="/Content/ShoppingCart.css" rel="stylesheet" type="text/css" />
-    <link href="/Content/Store.css" rel="stylesheet" type="text/css" />
+    
     <script src="~/lib/jquery/jquery.js"></script>
     <script src="~/lib/jquery-zoom/jquery.zoom.js"></script>
     <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
