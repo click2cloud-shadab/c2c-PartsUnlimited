@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-// using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -18,7 +18,7 @@ using PartsUnlimited.Security;
 using PartsUnlimited.Telemetry;
 using PartsUnlimited.WebsiteConfiguration;
 using System;
-// using System.Linq;
+using System.Linq;
 
 namespace PartsUnlimited
 {
@@ -134,11 +134,10 @@ namespace PartsUnlimited
                options.Cookie.IsEssential = true;
             });
 
-            services.AddAntiforgery(o => o.SuppressXFrameOptionsHeader = true);	
-            // services.AddAntiforgery(o => { 
-            //     o.SuppressXFrameOptionsHeader = true;
-            //     o.Cookie.SameSite = SameSiteMode.None; 
-            // });
+            services.AddAntiforgery(o => { 
+                o.SuppressXFrameOptionsHeader = true;
+                o.Cookie.SameSite = SameSiteMode.None; 
+            });
 
             services.AddCors(o => o.AddPolicy("AllowAll", builder =>
             {
@@ -210,43 +209,43 @@ namespace PartsUnlimited
             // Add cookie-based authentication to the request pipeline
             app.UseCookiePolicy();
 
-            // app.Use(async (ctx, next) =>
-            // {
-            //         var schemes = ctx.RequestServices.GetRequiredService<IAuthenticationSchemeProvider>();
-            //         var handlers = ctx.RequestServices.GetRequiredService<IAuthenticationHandlerProvider>();
-            //         foreach (var scheme in await schemes.GetRequestHandlerSchemesAsync())
-            //         {
-            //             var handler = await handlers.GetHandlerAsync(ctx, scheme.Name) as IAuthenticationRequestHandler;
-            //             if (handler != null && await handler.HandleRequestAsync())
-            //             {
-            //                 // start same-site cookie special handling
-            //                 string location = null;
-            //                 if (ctx.Response.StatusCode == 302)
-            //                 {
-            //                     location = ctx.Response.Headers["location"];
-            //                 }
-            //                 else if (ctx.Request.Method == "GET" && !ctx.Request.Query["skip"].Any())
-            //                 {
-            //                     location = ctx.Request.Path + ctx.Request.QueryString + "&skip=1";
-            //                 }
+            app.Use(async (ctx, next) =>
+            {
+                    var schemes = ctx.RequestServices.GetRequiredService<IAuthenticationSchemeProvider>();
+                    var handlers = ctx.RequestServices.GetRequiredService<IAuthenticationHandlerProvider>();
+                    foreach (var scheme in await schemes.GetRequestHandlerSchemesAsync())
+                    {
+                        var handler = await handlers.GetHandlerAsync(ctx, scheme.Name) as IAuthenticationRequestHandler;
+                        if (handler != null && await handler.HandleRequestAsync())
+                        {
+                            // start same-site cookie special handling
+                            string location = null;
+                            if (ctx.Response.StatusCode == 302)
+                            {
+                                location = ctx.Response.Headers["location"];
+                            }
+                            else if (ctx.Request.Method == "GET" && !ctx.Request.Query["skip"].Any())
+                            {
+                                location = ctx.Request.Path + ctx.Request.QueryString + "&skip=1";
+                            }
 
-            //                 if (location != null)
-            //                 {
-            //                     ctx.Response.StatusCode = 200;
-            //                     var html = $@"
-            //                         <html><head>
-            //                             <meta http-equiv='refresh' content='0;url={location}' />
-            //                         </head></html>";
-            //                     await ctx.Response.WriteAsync(html);
-            //                 }
-            //                 // end same-site cookie special handling
+                            if (location != null)
+                            {
+                                ctx.Response.StatusCode = 200;
+                                var html = $@"
+                                    <html><head>
+                                        <meta http-equiv='refresh' content='0;url={location}' />
+                                    </head></html>";
+                                await ctx.Response.WriteAsync(html);
+                            }
+                            // end same-site cookie special handling
 
-            //                 return;
-            //             }
-            //         }
+                            return;
+                        }
+                    }
 
-            //  await next();
-            // });
+             await next();
+            });
             
             AppBuilderLoginProviderExtensions.AddLoginProviders(service, new ConfigurationLoginProviders(Configuration.GetSection("Authentication")));
             // Add login providers (Microsoft/AzureAD/Google/etc).  This must be done after `app.UseIdentity()`
